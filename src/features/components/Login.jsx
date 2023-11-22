@@ -1,13 +1,34 @@
-import { Button, Col, Form, Input, Row, Typography } from "antd"
+import { Button, Col, Form, Input, Row, Typography } from 'antd'
+import { useState } from 'react';
+import { connect } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { LoginRequest } from '../redux/Auth/authSlice';
 
-const onFinish = (values) => {
-        console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+const Login = () => {
+    const dispatch = useDispatch();
+    const navigate= useNavigate();
+    const auth = useSelector((state) => state.auth);
 
-const LogIn = () => {
+    const [user, setUser] = useState({
+    user_name: "",
+    password: "",
+    });
+
+    const onFinish = (values) => {
+        setUser((user) => ({
+            ...user,
+            user_name: values.user_name,
+            password: values.password,
+        }));
+        console.log(user);
+        dispatch(LoginRequest(user));
+    }
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    }
+
     return (
         <div>
             <div style={{ height: '195px' }}></div>
@@ -31,7 +52,7 @@ const LogIn = () => {
                         <br />
 
                         <Form.Item
-                            name="username"
+                            name="user_name"
                             rules={[
                                 {
                                     required: true,
@@ -73,4 +94,10 @@ const LogIn = () => {
     )
 }
 
-export default LogIn
+const mapStateToProps = state => {
+    return {
+        user: state.auth,
+    }
+}
+
+export default connect(mapStateToProps)(Login);

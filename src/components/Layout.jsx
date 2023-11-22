@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 const { Header, Content, Sider } = Layout;
 
-const AdminLayout = () => {
+const ALayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
@@ -132,4 +132,4 @@ const AdminLayout = () => {
     );
 }
 
-export default AdminLayout
+export default ALayout
