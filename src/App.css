@@ -1,1 +1,35 @@
+.div_login{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100wh;
+    height: 100vh;
+    background-color: rgb(45, 45, 132);
+    background-size: cover;
+    background: url('../src/assets/t2.png') no-repeat;
+    background-position: center; 
+}
 
+.loginForm{
+
+    width: 490px;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow:  0 0 10px rgba(0, 0, 0, .2);
+    padding: 40px 30px;
+    border-radius:16px ;
+}
+
+.customButton{
+    margin-top: 10px;
+
+}
+
+.conatiner_register{
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+}

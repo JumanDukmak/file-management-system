@@ -1,103 +1,97 @@
-import { Button, Col, Form, Input, Row, Typography } from 'antd'
-import { useState } from 'react';
-import { connect } from "react-redux";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { LoginRequest } from '../redux/Auth/authSlice';
+import React, { useEffect, useState } from "react";
+import { Button, Form, Input, Typography } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginReguest } from "../redux/Auth/authSlice";
 
-const Login = () => {
-    const dispatch = useDispatch();
-    const navigate= useNavigate();
+function Login() {
     const auth = useSelector((state) => state.auth);
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [user, setUser] = useState({
-    user_name: "",
-    password: "",
+        user_name: "",
+        password: "",
     });
 
-    const onFinish = (values) => {
-        setUser((user) => ({
-            ...user,
-            user_name: values.user_name,
-            password: values.password,
-        }));
+    const isAuth = useSelector((state) => state.auth.done);
+
+    useEffect(() => {
+        if (isAuth) {
+            // navigate('/Groups')
+            // navigate('/Files')
+            navigate("/Users");
+        }
+    }, [isAuth]);
+
+    const onFinish = (e) => {
         console.log(user);
-        dispatch(LoginRequest(user));
-    }
+        console.log(user.password);
+
+        dispatch(LoginReguest(user));
+    };
 
     const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    }
+        console.log("Failed:", errorInfo);
+    };
 
     return (
-        <div>
-            <div style={{ height: '195px' }}></div>
-            <Row justify="space-around" align="middle">
-                <Col span={8}></Col>
-                <Col span={8}>
-                    <Form
-                        layout="vertical"
-                        name="login"
-                        requiredMark={false}
-                        initialValues={{ remember: true }}
-                        wrapperCol={{
-                            span: 14,
-                            offset: 5
-                        }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
+        <div className="div_login">
+            <Form
+                className="loginForm"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                <Typography.Title style={{ textAlign: "center", color: "white" }}>
+                    Welcom Back!
+                </Typography.Title>
+                <Form.Item
+                    label={<span style={{ color: "white" }}>Username</span>}
+                    name="username"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Please enter your username!",
+                        },
+                    ]}
+                >
+                    <Input
+                        placeholder="Enter enter your Username"
+                        onChange={(e) => setUser({ ...user, user_name: e.target.value })}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label={<span style={{ color: "white" }}>Password</span>}
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Please input your password!",
+                        },
+                    ]}
+                >
+                    <Input.Password
+                        placeholder="Enter your Password"
+                        onChange={(e) => setUser({ ...user, password: e.target.value })}
+                    />
+                </Form.Item>
+
+                <Form.Item>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        block
+                        className="customButton"
                     >
-                        <Typography
-                            style={{ fontSize: '28px', textAlign: 'center', fontWeight: 'bold', color: 'black' }}>Log in</Typography>
-                        <br />
-
-                        <Form.Item
-                            name="user_name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your username!',
-                                }
-                            ]}
-                        >
-                            <Input placeholder='User Name' />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                }
-                            ]}
-                        >
-                            <Input.Password placeholder='Password' />
-                        </Form.Item>
-
-                        <br />
-                        <Form.Item wrapperCol={{ offset: 5, span: 14 }}>
-                            <Button
-                                type="primary"
-                                htmlType="submit"
-                                block
-                            >
-                                Log in
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Col>
-                <Col span={8}></Col>
-            </Row>
-            <div style={{ height: '124px' }}></div>
+                        {auth.loading ? "Loading...." : "Login"}
+                    </Button>
+                    <div className="conatiner_register">
+                        Dont Have an account? <Link to="/Register">register now!</Link>
+                    </div>
+                </Form.Item>
+            </Form>
         </div>
-    )
+    );
 }
-
-const mapStateToProps = state => {
-    return {
-        user: state.auth,
-    }
-}
-
-export default connect(mapStateToProps)(Login);
+export default Login;

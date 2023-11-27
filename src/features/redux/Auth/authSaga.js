@@ -1,28 +1,29 @@
-import { takeEvery, all, call, put } from "redux-saga/effects";
-import { LoginFailaur, LoginSuccess } from "./authSlice";
-import authApi from "../../api/authApi";
+import { all, call, put, takeEvery} from 'redux-saga/effects';
+import authApi from '../../api/authApi';
+import { LoginFailaur, LoginSuccess } from './authSlice';
 
-function* login(action) {
-    console.log(action);
-    try {
-        const response = yield call(
-            authApi,
-            action.payload.user_name,
-            action.payload.password
-        );
-        console.log('in saga: ' + response);
-        const token = response.data.data.token;
-        yield put(LoginSuccess({ token: token }));
-    } catch (error) {
-        console.log(error);
-        yield put(LoginFailaur( ));
+
+function* LoginSaga(action) {
+
+    console.log('in : LoginSaga')
+
+    try{
+        const response=yield call(authApi, action.payload)
+        localStorage.setItem('token',JSON.stringify(response.data.message.token));
+        yield put(LoginSuccess({'user': response.data.message.user}))
+    } 
+    catch(error){
+        yield put(LoginFailaur({'error': error.data.message}))
+        console.log(error)
     }
 }
 
-function* authWatecherSaga() {
-    yield takeEvery("auth/LoginRequest", login);
+function* authWatcherSaga(){
+    yield takeEvery('auth/LoginReguest',LoginSaga)
 }
 
-export default function* authSaga() {
-    yield all([authWatecherSaga()]);
+export default function* authSaga(){
+    yield all([ 
+        authWatcherSaga()
+    ]);
 }
