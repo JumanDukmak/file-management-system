@@ -2,12 +2,15 @@ import { DashboardOutlined, SolutionOutlined, UserOutlined, GroupOutlined, MenuU
 import { Breadcrumb, Button, Layout, Menu, theme } from 'antd';
 import SubMenu from 'antd/es/menu/SubMenu';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import storage from '../utils/storage';
 
 const { Header, Content, Sider } = Layout;
 
 const BaseLayout = (props) => {
     const navigate = useNavigate();
+    const user = useSelector((state) => state.auth.user);
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
@@ -103,21 +106,6 @@ const BaseLayout = (props) => {
                         <div className="demo-logo" />
                     </Header>
 
-                    <Layout
-                        style={{
-                            padding: '0 24px 24px',
-                        }}
-                    >
-                        <Breadcrumb
-                            style={{
-                                margin: '16px 0',
-                            }}
-                        >
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item>List</Breadcrumb.Item>
-                            <Breadcrumb.Item>App</Breadcrumb.Item>
-                        </Breadcrumb>
-
                         <Content 
                             style={{
                                 padding: 24,
@@ -130,7 +118,6 @@ const BaseLayout = (props) => {
                         </Content>
                     </Layout>
                 </Layout>
-            </Layout >
         </>
     );
 
@@ -239,24 +226,30 @@ const BaseLayout = (props) => {
         </>
     );
 
-    // if(!user)
-    // {
-    //     return (login/register)
-    // }
+    const LoginLayout = (
+        <>
+            <Layout>
+                <Content 
+                    style={{
+                        padding: 24,
+                        margin: 0,
+                        minHeight: 280,
+                        //background: colorBgContainer,
+                    }}
+                >
+                        {props.children}
+                </Content>
+            </Layout >
+        </>
+    );
 
-    // else if (Role.Admin)
-    // {
-    //     return (
-    //         AdminLayout
-    //     )
-    // }
-
-    // else if (Role.Member)
-    // {
-    //     return (
-    //         MemberLayout
-    //     )
-    // }
+    if(!user) {
+        return LoginLayout
+    } else if (storage.getRole() == 'Admin') {
+        return AdminLayout
+    } else if (storage.getRole() == 'Member') {
+        return MemberLayout
+    }
     
 }
 

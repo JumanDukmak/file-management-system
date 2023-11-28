@@ -1,16 +1,17 @@
 
-const storagePrefix = 'bulletproof_react_';
-
 const storage = {
     getToken: () => {
-        return JSON.parse(window.localStorage.getItem(`${storagePrefix}token`) || 'null');
+        return localStorage.getItem('token');
     },
     setToken: (token) => {
-        window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
+        localStorage.setItem('token', token);
     },
-    clearToken: () => {
-        window.localStorage.removeItem(`${storagePrefix}token`);
+    setRole:(role)  => { 
+        localStorage.setItem('role', role);
     },
+    getRole:()  => { 
+        return localStorage.getItem('role');
+    }
 };
 
 export default storage

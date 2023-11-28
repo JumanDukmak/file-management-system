@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, Input, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginReguest } from "../redux/Auth/authSlice";
+import storage from "../../utils/storage";
 
 function Login() {
     const auth = useSelector((state) => state.auth);
@@ -17,16 +18,16 @@ function Login() {
 
     useEffect(() => {
         if (isAuth) {
-            // navigate('/Groups')
-            // navigate('/Files')
-            navigate("/Users");
+            if(storage.getRole() == 'Admin') {
+                navigate("/add/file");
+            }
+            else if (storage.getRole() == 'Member') {
+                navigate("/show/file");
+            }
         }
     }, [isAuth]);
 
-    const onFinish = (e) => {
-        console.log(user);
-        console.log(user.password);
-
+    const onFinish = () => {
         dispatch(LoginReguest(user));
     };
 

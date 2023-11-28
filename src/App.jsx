@@ -3,9 +3,10 @@ import { Routes, Route } from 'react-router-dom'
 import Login from './features/components/Login'
 import Register from './features/components/Register'
 import FileCreate from './features/components/AdminPanel/Files/FileCreate'
-import RequireAuth from './components/RequireAuth'
+
 import ShowFiles from './features/components/AdminPanel/Files/ShowFiles'
 import BaseLayout from './components/BaseLayout'
+import RequireAuth from './components/RequireAuth'
 
 const ROLES = {
   Member: 'Member',
@@ -14,13 +15,11 @@ const ROLES = {
 
 function App() {
   return (  
-    
+    <BaseLayout>
         <Routes>
-            {/* public routes */}
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-
-            {/* we want to protect these routes */}
+            <Route exact path="login" element={<Login />} />
+            <Route exact path="register" element={<Register />} />
+          
             <Route element={<RequireAuth allowedRoles={[ROLES.Member]} />}>
               {/* <Route path="/" element={<Home />} /> */}
             </Route>
@@ -30,14 +29,14 @@ function App() {
               <Route exact path="show/file" element={<ShowFiles />} />
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={[ROLES.Mem, ROLES.Admin]} />}>
+            {/*<Route element={<RequireAuth allowedRoles={[Member, Admin]} />}>
               {/* <Route path="lounge" element={<Lounge />} /> */}
-            </Route>
+            {/*</Route>
 
             {/* <Route path="*" element={<Missing />} /> */}
           
         </Routes>
-
+    </BaseLayout>
   );
 }
 

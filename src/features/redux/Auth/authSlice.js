@@ -12,18 +12,16 @@ message:""
 
 reducers:{
 LoginReguest:(state) => {
-    console.log('LoginRequest');
     state.loading=true;
 },
-LoginSuccess:(state)=> {
-    console.log('LoginSuccess');
+LoginSuccess:(state,action)=> {
     state.loading=false;
     state.done=true;
+    state.user=action.payload;
 },
 LoginFailaur:(state,action) =>{
 console.log('LoginFailaur');
     state.loading=false;
-    console.log('action.payload'+ action.payload);
     state.error=action.payload;
 },
 

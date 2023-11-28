@@ -1,6 +1,7 @@
 import { all, call, put, takeEvery} from 'redux-saga/effects';
 import authApi from '../../api/authApi';
 import { LoginFailaur, LoginSuccess } from './authSlice';
+import storage from '../../../utils/storage';
 
 
 function* LoginSaga(action) {
@@ -9,12 +10,13 @@ function* LoginSaga(action) {
 
     try{
         const response=yield call(authApi, action.payload)
-        localStorage.setItem('token',JSON.stringify(response.data.message.token));
+        storage.setToken(response.data.message.token);
+        storage.setRole(response.data.message.user.roles[0].name);
         yield put(LoginSuccess({'user': response.data.message.user}))
     } 
     catch(error){
         yield put(LoginFailaur({'error': error.data.message}))
-        console.log(error)
+        console.log(error.response.data)
     }
 }
 
