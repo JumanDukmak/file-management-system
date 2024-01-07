@@ -6,7 +6,6 @@ import storage from '../../../utils/storage';
 
 function* LoginSaga(action) {
 
-    console.log('in : LoginSaga')
 
     try{
         const response=yield call(authApi, action.payload)
@@ -15,8 +14,9 @@ function* LoginSaga(action) {
         yield put(LoginSuccess({'user': response.data.message.user}))
     } 
     catch(error){
-        yield put(LoginFailaur({'error': error.data.message}))
-        console.log(error.response.data)
+        console.log("error"+error.message)
+        yield put(LoginFailaur({'error': error.message}))
+      
     }
 }
 

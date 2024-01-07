@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input, message,Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { LoginReguest } from "../redux/Auth/authSlice";
+import {  LoginReguest } from "../redux/Auth/authSlice";
 import storage from "../../utils/storage";
 
 function Login() {
+    const [messageApi, contextHolder] = message.useMessage();
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,16 +20,31 @@ function Login() {
     useEffect(() => {
         if (isAuth) {
             if(storage.getRole() == 'Admin') {
-                navigate("/add/file");
+                navigate("/");
             }
             else if (storage.getRole() == 'Member') {
-                navigate("/show/file");
+                navigate("/");
             }
         }
-    }, [isAuth]);
+
+
+ if(auth.error != null){
+    messageApi.open({
+        type: 'error',
+        content: auth.error,
+      });
+
+      
+
+}
+
+
+
+    }, [isAuth,auth.error]);
 
     const onFinish = () => {
         dispatch(LoginReguest(user));
+      
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -37,6 +53,7 @@ function Login() {
 
     return (
         <div className="div_login">
+            {contextHolder}
             <Form
                 className="loginForm"
                 onFinish={onFinish}

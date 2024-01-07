@@ -6,43 +6,54 @@ initialState:{
     user:null,
 loading:false,
 done:false,
-error:"",
+logout:false,
+error:null,
+
 message:""
 },
 
 reducers:{
 LoginReguest:(state) => {
     state.loading=true;
+    state.done=false;
+    state.error=null;
 },
 LoginSuccess:(state,action)=> {
     state.loading=false;
     state.done=true;
+    state.error=null;
     state.user=action.payload;
 },
 LoginFailaur:(state,action) =>{
-console.log('LoginFailaur');
     state.loading=false;
-    state.error=action.payload;
+    console.log(action.payload.error)
+    state.error=action.payload.error;
+    state.done=false;
 },
-
+//----------------------LOGOUT--------------------------------------
 LogOutReguest:(state) => {
-    console.log('LogOutRequest');
     state.loading=true;
+    state.logout=false;
+    state.error=null;
 
 },
 LogOutSuccess:(state,action)=> {
-    console.log('LogOutSuccess');
     state.loading=false;
-    state.done=true;
+    state.logout=true;
+    state.error=null;
     state.message=action.payload.message;
 },
 LogOutFailaur:(state,action) =>{
-    console.log('LogOutFailaur');
     state.loading=false;
-    console.log('action.payload'+ action.payload);
+    state.logout=false;
+    state.error=action.payload.error;
+    
+},
+restDataToLogOut:(state)=>{
+state.logout=false;
 }
 
-
+//------------------------------Register-----------------------
 
 
 
@@ -60,5 +71,5 @@ LogOutFailaur:(state,action) =>{
 
 })
 
-export const {LoginReguest, LoginSuccess,LoginFailaur,LogOutReguest,LogOutSuccess,LogOutFailaur}=authSlice.actions;
+export const {LoginReguest, LoginSuccess,LoginFailaur,LogOutReguest,LogOutSuccess,LogOutFailaur,restDataToLogOut}=authSlice.actions;
 export default authSlice.reducer;
