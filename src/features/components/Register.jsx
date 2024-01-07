@@ -34,7 +34,7 @@ useEffect(() => {
     if (isAuth) {
        
           
-            navigate("/Dashboard");
+            navigate("/");
        }
 
 if(register.error != null){
