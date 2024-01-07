@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row ,Avatar, Card ,Space, Button, Divider} from 'antd';
+import { Col, Row ,Avatar, Card ,Space, Button, Divider, message} from 'antd';
 import { EditOutlined, EllipsisOutlined, DeleteOutlined ,UngroupOutlined} from '@ant-design/icons';
 import { DownloadOutlined,ReadOutlined,FileTextOutlined,LockOutlined,UnlockOutlined} from '@ant-design/icons';
 
@@ -8,10 +8,10 @@ import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import { deleteGroupStart, getGroupsStart } from '../../redux/Groups/groupsSlice';
-import { getFilesReguest } from '../../redux/Files/filesSlice';
+import { deleteGroupStart, getGroupsStart, resetData } from '../../redux/Groups/groupsSlice';
+import { deleteFileStart, getFilesReguest, resetDataFiles } from '../../redux/Files/filesSlice';
 import { removeFileStart } from '../../redux/Groups/groupSlice';
-import { DownloadFileRequest, ReadFileRequest } from '../../redux/Files/fileSlice';
+import { DownloadFileRequest, ReadFileRequest, resetDataFile } from '../../redux/Files/fileSlice';
 
 
 
@@ -24,7 +24,7 @@ function Dashboard() {
     const navigate=useNavigate();
     const groups= useSelector((state) => state.groups)
     const files= useSelector((state) => state.files)
-
+    const file= useSelector((state) => state.file)
     useEffect(()=>{
         dispatch(getGroupsStart())
         dispatch(getFilesReguest())
@@ -33,6 +33,30 @@ function Dashboard() {
     },[dispatch])
     
   
+    useEffect(()=>{
+
+
+      if(files.error){
+        message.error( files.error);
+          dispatch(resetDataFiles())
+      }
+  
+      if(file.error)
+    {
+      message.error( file.error);
+          dispatch(resetDataFile())
+    }
+
+  if(groups.error){
+    message.error( groups.error);
+      dispatch(resetData())
+  }
+
+
+    },[files.error,file.error,groups.error])
+  
+
+
 
 
 
@@ -176,18 +200,12 @@ groups.error  && <div> {'Error : Not Found '}</div>
                   />,
 <DeleteOutlined key={'delete'}  
 onClick={()=>{
-  console.log('the id_group is :'+ id);
+  
   console.log('the id_file is :' + file.id)
   
-  const id_group=id;
-  const id_file=file.id;
-  let ids={
-    id_group,
-    id_file
-  }
-  dispatch(removeFileStart(ids))
-  
-  
+ 
+  dispatch(deleteFileStart(file.id))
+  console.log('jj')
             }}
 
 />,

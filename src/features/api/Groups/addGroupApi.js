@@ -19,7 +19,7 @@ function addGroupsApi(name,user_list,file_list){
     },}
     
     
-    ).then(response => (response))
+    ).then(response => (response)).catch(error =>(error.response.data.message) )
     
     }
     export default addGroupsApi;

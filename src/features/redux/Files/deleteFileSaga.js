@@ -5,13 +5,14 @@ import deleteFileApi from "../../api/Files/deleteFileApi";
 
 function* deleteFileSaga(action){
     
-    try{
-        const response= yield call(deleteFileApi,action.payload)
+    const response= yield call(deleteFileApi,action.payload)
+    if(response.status==200 || response.status==201){
+       
  yield put(deleteFileSuccess(response.data))
 
 
     }
-    catch(error){
+    else{
 
 yield put(deleteFileFailure({'error':response}))
     }

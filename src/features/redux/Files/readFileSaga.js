@@ -5,8 +5,9 @@ import readFileApi from "../../api/Files/readFileApi";
 
 function* readFileSaga(action){
 
-    try{     
-const response= yield call(readFileApi,action.payload)
+    const response= yield call(readFileApi,action.payload)
+
+    if(response.status ==200 || response.status ==201){     
 
  // Create a Blob from the file data
  const fileBlob = new Blob([response.data], { type: response.data.type });
@@ -21,11 +22,11 @@ yield put(ReadFileSuccess(response.data))
 
 
     }
-    catch(error){
+   else{
 
 
 
-yield put(ReadFileFailure({'error':error.message}))
+yield put(ReadFileFailure({'error':response.data.message}))
 
 
     }

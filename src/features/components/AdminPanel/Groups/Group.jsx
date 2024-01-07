@@ -249,7 +249,6 @@ navigate('/HistoryFile',{state:{id:file.id,}})
 // window.location.href = file.toString();
 
                   }}
-                  
                   avatar={<Avatar   style={{ backgroundColor: '#c9efef', color: 'teal' }}   icon={<FileTextOutlined />} />}
                   title={file.name}
                   description={(file.status == 'free') ? ('The Status is: '+ file.status + file.id) : ('reserver by : '+file.reserver.name)}

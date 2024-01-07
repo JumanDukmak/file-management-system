@@ -8,11 +8,9 @@ import LogOutApi from '../../api/logOutApi';
 
 function* LogOutSaga() {
 
-    
+    const response=yield call(LogOutApi)   
 
-try{
-
-const response=yield call(LogOutApi)
+if(response.status ==200 || response.status ==201){
 
 localStorage.removeItem('token');
 localStorage.removeItem('role');
@@ -21,9 +19,9 @@ yield put(LogOutSuccess({'message':response.data.message}))
 
 
 }
-catch(error){
-
-yield put(LogOutFailaur({'error':error.message}))
+else{
+console.log(response)
+yield put(LogOutFailaur({'error':response}))
 
 
 

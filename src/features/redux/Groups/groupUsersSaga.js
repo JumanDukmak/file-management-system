@@ -6,20 +6,17 @@ import getGroupUsersApi from "../../api/Groups/groupUserApi";
 
 function* getGroupUsersSaga(action){
 
-    try{
+    const response= yield call(getGroupUsersApi,action.payload)
+
+    if(response.status==200 || response.status==201){
        
-      
-        
-      
-const response= yield call(getGroupUsersApi,action.payload)
 
  yield put(getGroupUsersSuccess({'group_users':response.data.Users_Group}))
 
-
     }
-    catch(error){
+   else{
 
-yield put(getGroupUsersFailure({'error':error.message}))
+yield put(getGroupUsersFailure({'error':response}))
     }
 
 }

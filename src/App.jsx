@@ -37,7 +37,7 @@ function App() {
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
            
-          <Route path="/HistoryFile" element={<HistoryFile />} />
+         
 
             
             </Route>
@@ -54,6 +54,7 @@ function App() {
               <Route exact path='/AddGroup' element={<AddGroup />} />
 
               <Route exact path='/Group' element={<Group />} />
+              <Route  exact path="/HistoryFile" element={<HistoryFile />} />
 
               <Route exact path='/UpdateGroup' element={<UpdateGroup />} />
 

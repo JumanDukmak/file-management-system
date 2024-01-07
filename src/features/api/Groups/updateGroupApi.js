@@ -12,7 +12,8 @@ function updateGroupApi(id, name,user_list,file_list){
             'Authorization': `Bearer ${storage.getToken()}`,
             'Content-Type': 'application/json'
         }
-    }).then(response => (response))
+        
+    }).then(response => (response)).catch(error =>(error.response.data.message) )
   }
   export default updateGroupApi
 

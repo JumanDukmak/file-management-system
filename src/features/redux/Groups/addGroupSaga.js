@@ -6,23 +6,16 @@ import addGroupsApi from "../../api/Groups/addGroupApi";
 
 function* addGroupSaga(action){
 
-    try{
+
+    const response= yield call(addGroupsApi,action.payload.name,action.payload.user_list,action.payload.file_list)
+
+    if(response.status==200 || response.status==201){
              
- const response= yield call(addGroupsApi,action.payload.name,action.payload.user_list,action.payload.file_list)
-
-
-
     yield put(addGroupSuccess(response.data))
 
-
-
-
     }
-    catch(error){
-
-     
-
-        yield put(addGroupFailure({'error': error.message}))
+    else{
+        yield put(addGroupFailure({'error': response}))
     }
 
 }

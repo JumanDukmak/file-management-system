@@ -16,7 +16,8 @@ function getHistoryFileApi(id){
     }
     
     
-    ).then(response => (response))
+    ).then(response => (response)).catch(error =>(error.response.data.message))
+    
     
     }
     export default getHistoryFileApi;

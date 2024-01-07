@@ -7,17 +7,20 @@ import storage from '../../../utils/storage';
 function* LoginSaga(action) {
 
 
-    try{
+   
         const response=yield call(authApi, action.payload)
+        if(response.status ==200 ||  response.status == 201){
+
+        
         storage.setToken(response.data.message.token);
         storage.setRole(response.data.message.user.roles[0].name);
         yield put(LoginSuccess({'user': response.data.message.user}))
-    } 
-    catch(error){
-        console.log("error"+error.message)
-        yield put(LoginFailaur({'error': error.message}))
-      
-    }
+        }
+     
+   else{
+    console.log("error"+response)
+        yield put(LoginFailaur({'error': response}))
+   }
 }
 
 function* authWatcherSaga(){

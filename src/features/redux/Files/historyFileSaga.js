@@ -5,18 +5,19 @@ import { getHistoryFileFailure, getHistoryFileSuccess } from "../Groups/groupSli
 
 
 function* getHistoryFileSaga(action){
-console.log('in history :'+ action.payload)
-    try{
+
+    const response= yield call(getHistoryFileApi,action.payload)
+
+    if(response.status==200 || response.status==201){
        
-const response= yield call(getHistoryFileApi,action.payload)
 
 yield put(getHistoryFileSuccess({'history_file':response.data.history}))
 
 
     }
-    catch(error){
+    else{
 
-yield put(getHistoryFileFailure({'error':error.message}))
+yield put(getHistoryFileFailure({'error':response}))
     }
 
 }

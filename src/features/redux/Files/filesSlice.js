@@ -92,7 +92,7 @@ uploadFileStart:(state)=>{
     uploadFileSuccess:(state,action)=>{
     state.loading=false;
     state.error=null;
-    state.files.push(action.payload.data);
+       state.files.push(action.payload.data);
     state.message=action.payload.message;
     
     },
