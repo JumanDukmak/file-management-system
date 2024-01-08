@@ -15,7 +15,7 @@ function updateFileApi(formData,id){
         'Content-Type': 'multipart/form-data'
     },    }
  
-    ).then(response => (response))
+    ).then(response => (response)).catch(error =>(error.response.data.message) )
     
     }
     export default updateFileApi;

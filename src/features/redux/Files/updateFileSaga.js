@@ -9,23 +9,24 @@ import updateFileApi from "../../api/Files/updateFileApi";
 
 function* updateFileSaga(action){
 
-    try{
-     
-     const formData=new FormData();
+    const formData=new FormData();
      formData.append("updated_file",action.payload.updated_file) 
      formData.append("name",action.payload.name)
     
  const response= yield call(updateFileApi,formData,action.payload.id)
 
+    if(response.status==200 || response.status==201){
+     
+     
 
 //msg
  yield put(updateFileSuccess(response.data))
 
 
     }
-    catch(error){
+    else{
 
-yield put(updateFileFailure({'error':error.message}))
+yield put(updateFileFailure({'error':response}))
     }
 
 }
