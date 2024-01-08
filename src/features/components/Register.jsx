@@ -1,11 +1,11 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, message, Form, Input,Typography } from 'antd';
+import { Button, message, Form, Input,Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { RegisterReguest } from '../redux/Auth/registerSlice';
-import storage from '../../utils/storage';
+
 
 
 
