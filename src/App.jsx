@@ -2,9 +2,6 @@ import './App.css'
 import {  Routes, Route } from 'react-router-dom'
 import Login from './features/components/Login'
 import Register from './features/components/Register'
-import FileCreate from './features/components/AdminPanel/Files/FileCreate'
-
-import ShowFiles from './features/components/AdminPanel/Files/ShowFiles'
 import BaseLayout from './components/BaseLayout'
 import RequireAuth from './components/RequireAuth'
 import UploadFile from './features/components/AdminPanel/Files/UploadFile'
@@ -18,6 +15,7 @@ import AddGroup from './features/components/AdminPanel/Groups/AddGroup'
 import Dashboard from './features/components/AdminPanel/Dashboard'
 import MultiCheckIn from './features/components/AdminPanel/Groups/MultiCheckIn'
 import HistoryFile from './features/components/AdminPanel/Groups/HistoryFile'
+import ConfigProvider from 'antd/es/config-provider'
 
 const ROLES = {
   Member: 'Member',
@@ -26,6 +24,13 @@ const ROLES = {
 
 function App() {
   return (  
+    <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#02e079',
+      },
+    }}
+  >
     <BaseLayout>
         <Routes>
             <Route exact path="login" element={<Login />} />
@@ -74,6 +79,7 @@ function App() {
           
         </Routes>
     </BaseLayout>
+    </ConfigProvider>
   );
 }
 

@@ -45,9 +45,8 @@ const group=useSelector((state)=>state.group)
                 
                 {
         
-        (group.history_file)
-        &&
-        group.history_file.map((history,i)=>(
+        
+        group.history_file?.map((history,i)=>(
         
             <Col className="gutter-row" key={i} >
                   
@@ -91,22 +90,6 @@ const group=useSelector((state)=>state.group)
 
 
 
-{
- //لو هو عم يحمل  رح يعرضل لودينغ 
- group.loading &&  <Backdrop
- sx={{ color: 'teal', zIndex: (theme) => theme.zIndex.drawer + 1 }}
- open
- 
->
- <CircularProgress color="inherit" />
-</Backdrop>}
- 
-
- {
-
-  //   لو مافي history 
-  !group.history_file && !group.loading &&(<div>No History </div>)
- }
 
  
                 

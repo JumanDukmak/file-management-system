@@ -1,9 +1,9 @@
 import { DashboardOutlined, SolutionOutlined, UserOutlined, GroupOutlined,LogoutOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu, theme } from 'antd';
 import SubMenu from 'antd/es/menu/SubMenu';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import storage from '../utils/storage';
 import { LogOutReguest, restDataToLogOut } from '../features/redux/Auth/authSlice';
 
@@ -26,30 +26,22 @@ console.log("total :+"+isUnAuth);
             dispatch(restDataToLogOut())
             navigate('/login')
         }
-      
     }, [isUnAuth]);
 
-
-
-    
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
     const AdminLayout = (
-      
             <Layout style={{height:'100vh'}} >
                 <Sider
                     trigger={null}
-                    
                     collapsible
                     collapsed={collapsed}
                     width={250}
-                    
                     style={{
-                        background: 'teal',
-                        
+                        background: 'rgb(1 50 67)',
                     }}
 
                 >
@@ -57,12 +49,11 @@ console.log("total :+"+isUnAuth);
                     <Menu
                         mode="inline"
                         defaultSelectedKeys={['1']}
-                      
                         style={{
                             height: '94%',
                             borderRight: 0,
                             color:'white',
-                            backgroundColor:'teal'
+                            backgroundColor:'rgb(1 50 67)'
                         }}
                     >
                         <Menu.Item key='1' onClick={()=>navigate('/')}>
@@ -90,7 +81,6 @@ console.log("total :+"+isUnAuth);
                                     <span>Files</span>
                                 </span>}
                         >
-                            
                             <Menu.Item key='4' onClick={() => navigate('/Files')}>All Files</Menu.Item>
                             <Menu.Item key='5' onClick={() => navigate('/UploadFile')}>Add File</Menu.Item>
                         </SubMenu>
@@ -110,8 +100,6 @@ console.log("total :+"+isUnAuth);
                         <LogoutOutlined />
                             <span>Log Out</span>
                             </Menu.Item>
-                       
-
                     </Menu>
                 </Sider>
 
@@ -123,14 +111,12 @@ console.log("total :+"+isUnAuth);
                             height: '5vh',
                             display: 'flex',
                             alignItems: 'center',
-                            background: '#c9efef',
-                            // backgroundColor:'red'
-
+                            background: '#f0f2f5',
                         }}
                     >
                         <Button
                             type="text"
-                            icon={collapsed ? <MenuUnfoldOutlined style={{ color: 'teal' }} /> : <MenuFoldOutlined style={{ color: 'teal' }} />}
+                            icon={collapsed ? <MenuUnfoldOutlined style={{ color: 'rgb(1 50 67)' }} /> : <MenuFoldOutlined style={{ color: 'rgb(1 50 67)' }} />}
                             onClick={() => setCollapsed(!collapsed)}
                             style={{
                                 background: 'transparent',
@@ -139,50 +125,41 @@ console.log("total :+"+isUnAuth);
                                 height: 40,
                             }}
                         />
-                        <div className="demo-logo" />
+                        <div />
                     </Header>
 
                         <Content 
                             style={{
-                                // padding: 24,
                                 margin: 0,
                                 minHeight: 280,
-                                //background: colorBgContainer,
                             }}
                         >
                         {props.children}
-                      
                         </Content>
                     </Layout>
                 </Layout>
-       
     );
 
     const MemberLayout = (
         <Layout style={{height:'100vh'}} >
         <Sider
             trigger={null}
-            
             collapsible
             collapsed={collapsed}
             width={250}
-            
             style={{
-                background: 'teal',
-                
+                background: 'rgb(1 50 67)',
             }}
-
         >
             <div style={{height: '40px'}}></div>
             <Menu
                 mode="inline"
                 defaultSelectedKeys={['1']}
-              
                 style={{
                     height: '94%',
                     borderRight: 0,
                     color:'white',
-                    backgroundColor:'teal'
+                    backgroundColor:'rgb(1 50 67)'
                 }}
             >
                 <Menu.Item key='1' onClick={()=>navigate('/')}>
@@ -210,7 +187,6 @@ console.log("total :+"+isUnAuth);
                             <span>Files</span>
                         </span>}
                 >
-                    
                     <Menu.Item key='4' onClick={() => navigate('/Files')}>All Files</Menu.Item>
                     <Menu.Item key='5' onClick={() => navigate('/UploadFile')}>Add File</Menu.Item>
                 </SubMenu>
@@ -230,8 +206,6 @@ console.log("total :+"+isUnAuth);
                 <LogoutOutlined />
                     <span>Log Out</span>
                     </Menu.Item>
-               
-
             </Menu>
         </Sider>
 
@@ -243,12 +217,12 @@ console.log("total :+"+isUnAuth);
                     height: '40px',
                     display: 'flex',
                     alignItems: 'center',
-                    background: '#c9efef',
+                    background: '#f0f2f5',
                 }}
             >
                 <Button
                     type="text"
-                    icon={collapsed ? <MenuUnfoldOutlined style={{ color: 'teal' }} /> : <MenuFoldOutlined style={{ color: 'teal' }} />}
+                    icon={collapsed ? <MenuUnfoldOutlined style={{ color: 'rgb(1 50 67)' }} /> : <MenuFoldOutlined style={{ color: 'rgb(1 50 67)' }} />}
                     onClick={() => setCollapsed(!collapsed)}
                     style={{
                         background: 'transparent',
@@ -257,19 +231,16 @@ console.log("total :+"+isUnAuth);
                         height: 40,
                     }}
                 />
-                <div className="demo-logo" />
+                <div />
             </Header>
 
                 <Content 
                     style={{
-                        // padding: 24,
                         margin: 0,
                         minHeight: 280,
-                        //background: colorBgContainer,
                     }}
                 >
                 {props.children}
-              
                 </Content>
             </Layout>
         </Layout>
@@ -280,10 +251,8 @@ console.log("total :+"+isUnAuth);
             <Layout>
                 <Content 
                     style={{
-                        // padding: 24,
                         margin: 0,
                         minHeight: 280,
-                        //background: colorBgContainer,
                     }}
                 >
                         {props.children}
@@ -293,17 +262,18 @@ console.log("total :+"+isUnAuth);
     );
 
     if(storage.getToken() == null) {
+        
         return LoginLayout
     } else if (storage.getRole() == 'Admin') {
-       
+
     
         return AdminLayout
     } else if (storage.getRole() == 'Member') {
 
         return MemberLayout
     }
-  
-   
+
+
 }
 
 export default BaseLayout
