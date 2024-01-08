@@ -1,11 +1,7 @@
 import React, { useEffect} from 'react';
 import { Col, Row ,Avatar, Card, message } from 'antd';
 import { useDispatch, useSelector} from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { FileTextOutlined} from '@ant-design/icons';
-
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import { useLocation} from 'react-router-dom';
 import { getHistoryFileStart, resetData } from '../../../redux/Groups/groupSlice';
 
 function HistoryFile() {

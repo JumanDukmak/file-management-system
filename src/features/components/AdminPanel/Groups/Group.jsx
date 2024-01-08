@@ -134,7 +134,7 @@ dispatch(removeMemberStart(ids))
      <Row justify='space-between'>
      <div style={{color:'teal',fontSize:'18px',fontWeight:'600'}}>Files</div>
      <Button onClick={()=>{
-       navigate('/MultiCheckIn',{state:{my_files:group.group_files}})
+       navigate('/MultiCheckIn',{state:{id_group:id}})
 
 
      }}>multi checkIn</Button>

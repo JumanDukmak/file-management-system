@@ -42,7 +42,7 @@ console.log('in error' );
   console.log(register.error);
 messageApi.open({
     type: 'error',
-    content: 'This is an error message',
+    content: register.error,
   });
 }
 

@@ -2,19 +2,34 @@ import React, { useEffect,useState} from 'react';
 import { Col, Checkbox,Row ,Avatar, Card, message, Button } from 'antd';
 import { FileTextOutlined} from '@ant-design/icons';
 import { useDispatch, useSelector} from 'react-redux';
-import { MultiCheckInRequest, resetData } from '../../../redux/Groups/groupSlice';
+import { MultiCheckInRequest, getGroupFilesStart, resetData } from '../../../redux/Groups/groupSlice';
+import { useLocation } from 'react-router-dom';
 
 function MultiCheckIn() {
     const { Meta } = Card;
     const dispatch=useDispatch();
+
+    
+      //-------------------------
+    const location=useLocation();
+    const{id_group} = location.state;//id file 
+      //-------------------------
+
+
     const group= useSelector((state) => state.group)
-   
     const [list, setList] = useState([]);
   
+
     useEffect(() => {
       console.log('k' + list);
+      //-------------------------
+      dispatch(getGroupFilesStart(id_group))
+      //-------------------------
+    
     }, [list]);
 
+
+   
     
     const onChange = (checkedValues) => {
 
@@ -61,7 +76,7 @@ function MultiCheckIn() {
                 {
         
         
-        group.group_files.map((file,i)=>(
+        group.group_files?.map((file,i)=>(
         
             <Col className="gutter-row" key={i} >
                   
