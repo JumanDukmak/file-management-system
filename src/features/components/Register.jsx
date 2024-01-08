@@ -37,6 +37,9 @@ function Register() {
   }, [isAuth, register.error]);
 
 
+
+
+
   const onFinish = (e) => {
 
     console.log(user);

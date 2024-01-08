@@ -81,17 +81,23 @@ function Group() {
           ))
         }
       </div>
+        
+{/* -----------------------------------------------------Divider--------------------------------------------------- */}
 
-      {/* -----------------------------------------------------Divider--------------------------------------------------- */}
-      <Divider></Divider>
-      {/* -----------------------------------------------------FILES--------------------------------------------------- */}
+<Divider></Divider>
+{/* -----------------------------------------------------FILES--------------------------------------------------- */}
+     
+
       <Row justify='space-between'>
         <div style={{ color: '#02e079', fontSize: '18px', fontWeight: '600' }}>Files</div>
         <Button onClick={() => {
           navigate('/MultiCheckIn', { state: { id_group: id } })
+
+
         }}>multi checkIn</Button>
-      </Row>
-      <div className='my_list_files'>
+        </Row>
+        <div className='my_list_files'>
+          
         <Row gutter={[16, 24]}>
           {
             group.group_files?.map((file, i) => (
